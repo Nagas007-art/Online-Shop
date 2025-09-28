@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Details - Mufty Online Mart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Product Details</h1>
+    <a href="shop.html">Back to home</a>
+  </header>
+
+  <main class="product-details">
+    <img id="productImage" alt="Product">
+    <h2 id="productName"></h2>
+    <p id="productDesc"></p>
+    <p><strong>Price:</strong> GH₵ <span id="productPrice"></span></p>
+    <a id="buyBtn" class="btn">Buy Now</a>
+    </main>
+
+  <script>
+    // Get data from URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("product");
+    const price = params.get("price");
+    const desc = params.get("desc");
+    const image = params.get("image");
+
+    // Display product info
+    document.getElementById("productName").textContent = name;
+    document.getElementById("productPrice").textContent = price;
+    document.getElementById("productDesc").textContent = desc;
+    document.getElementById("productImage").src = image;
+
+    // Buy button → send product info to form
+    document.getElementById("buyBtn").href = `form.html?product=${encodeURIComponent(name)}&price=${price}&image=${image}`;
+  </script>
+</body>
+</html>

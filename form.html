@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Form - Mufty Online Mart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Complete Your Order</h1>
+    <a href="shop.html">Back to home</a>
+  </header>
+
+  <main class="form-container">
+    <form id="orderForm">
+      <label>Full Name</label>
+      <input type="text" id="name" required>
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" required>
+
+      <label>Delivery Location</label>
+      <input type="text" id="location" required>
+
+      <label>Quantity</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <label>Product</label>
+      <input type="text" id="product" readonly>
+
+      <label>Price (GH₵)</label>
+      <input type="text" id="price" readonly>
+
+      <button type="submit" class="btn">Send Order on WhatsApp</button>
+      </form>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("product").value = params.get("product") || "";
+    document.getElementById("price").value = "GH₵ " + (params.get("price") || "");
+
+    const whatsappNumber = "233550040470";
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const location = document.getElementById("location").value;
+      const quantity = document.getElementById("quantity").value;
+      const product = document.getElementById("product").value;
+      const price = document.getElementById("price").value;
+
+      const message = `Hello, I want to order:%0A
+*Product:* ${product}%0A
+*Price:* ${price}%0A
+*Quantity:* ${quantity}%0A
+*Name:* ${name}%0A
+*Phone:* ${phone}%0A
+*Location:* ${location}`;
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    });
+  </script>
+</body>
+</html>
